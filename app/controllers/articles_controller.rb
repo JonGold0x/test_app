@@ -24,8 +24,19 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    @article = Article.new(article_params)
-
+  #@article = Article.new(article_params)
+      #render plain: params[:article].inspect
+      @article = Article.new(article_params)
+      @article.save
+      redirect_to articles_show(@article)
+  end
+    
+  private
+    def article_params
+      params.require(:article).permit(:title, :description)
+    end
+    
+=begin
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
@@ -35,7 +46,7 @@ class ArticlesController < ApplicationController
         format.json { render json: @article.errors, status: :unprocessable_entity }
       end
     end
-  end
+=end
 
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
