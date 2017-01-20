@@ -10,25 +10,27 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @article = Article.find(params[:id])
   end
 
-  # GET /articles/new
   def new
     @article = Article.new
   end
 
-  # GET /articles/1/edit
   def edit
   end
 
   # POST /articles
   # POST /articles.json
   def create
-  #@article = Article.new(article_params)
       #render plain: params[:article].inspect
       @article = Article.new(article_params)
-      @article.save
-      redirect_to articles_show(@article)
+      if  @article.save
+        flash[:notice] = "article successfully saved"
+        redirect_to article_path(@article)
+      else
+        render 'new'
+      end
   end
     
   private
