@@ -10,7 +10,8 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
+    
   end
 
   def new
@@ -18,7 +19,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
   end
 
   # POST /articles
@@ -35,7 +36,7 @@ class ArticlesController < ApplicationController
   end
   
   def update
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
     if @article.update(article_params)
       flash[:notice] = "article successfully updated"
       redirect_to article_path(@article)
@@ -43,34 +44,20 @@ class ArticlesController < ApplicationController
       render 'edit'
     end
   end
-    
+  
+  def destroy
+    #@article = Article.find(params[:id])
+    @article.destroy
+    flash[:notice] = "Article was successfully destroyed."
+    redirect_to articles_path
+  end
+  
   private
     def article_params
       params.require(:article).permit(:title, :description)
     end
     
-    
-  # PATCH/PUT /articles/1
-  # PATCH/PUT /articles/1.json
-
-  # DELETE /articles/1
-  # DELETE /articles/1.json
-  def destroy
-    @article.destroy
-    respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def article_params
-      params.require(:article).permit(:title, :description)
     end
 end
