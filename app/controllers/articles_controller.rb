@@ -18,19 +18,30 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    @article = Article.find(params[:id])
   end
 
   # POST /articles
   # POST /articles.json
   def create
-      #render plain: params[:article].inspect
-      @article = Article.new(article_params)
-      if  @article.save
-        flash[:notice] = "article successfully saved"
-        redirect_to article_path(@article)
-      else
-        render 'new'
-      end
+    #render plain: params[:article].inspect
+    @article = Article.new(article_params)
+    if  @article.save
+      flash[:notice] = "article successfully saved"
+      redirect_to article_path(@article)
+    else
+      render 'new'
+    end
+  end
+  
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      flash[:notice] = "article successfully updated"
+      redirect_to article_path(@article)
+    else
+      render 'edit'
+    end
   end
     
   private
@@ -38,31 +49,9 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:title, :description)
     end
     
-=begin
-    respond_to do |format|
-      if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
-        format.json { render :show, status: :created, location: @article }
-      else
-        format.html { render :new }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
-    end
-=end
-
+    
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
-  def update
-    respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
-        format.json { render :show, status: :ok, location: @article }
-      else
-        format.html { render :edit }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /articles/1
   # DELETE /articles/1.json
