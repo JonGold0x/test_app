@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   resources :articles
   
   get 'signup', to: 'users#new'
-  post 'users', to: 'users#create'
+  #post 'users', to: 'users#create'
+  # users controller, create action
+  
+  resources :users, except: [:new]
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
