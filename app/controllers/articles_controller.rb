@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    debugger
+    #debugger
     #render plain: params[:article].inspect
     @article = Article.new(article_params)
     @article.user = @user
@@ -63,3 +63,7 @@ class ArticlesController < ApplicationController
       @article = Article.find(params[:id])
     end
 end
+
+# find article, update user ID
+# article = Article.find(2)
+# article.update_attribute :user_id, 8
