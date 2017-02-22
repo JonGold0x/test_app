@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :articles
   
   get 'signup', to: 'users#new'
+  get 'index', to: 'users#index'
+  
   #post 'users', to: 'users#create'
   # users controller, create action
   
